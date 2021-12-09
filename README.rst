@@ -125,6 +125,7 @@ Install from source code:
     __print_obj(resp)
     
     # Composite Index Symbol Information
+    resp = restapi.get_index_info()
     __print_obj(resp)
     
     # Multi-Assets Mode Asset Index
@@ -314,4 +315,4 @@ Bash Show
 Other examples
 ---------------
 
-See the example_f/
+See example/
