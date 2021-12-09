@@ -46,7 +46,7 @@ class WSConnection:
         self.__reset().set_ws(None).set_handlers(None, None).__set_channel(channel)
         self.__watch_dog_thread = threading.Thread(target=watch_dog_job, args=[self])
         self.__watch_dog_thread.start()
-        self.logger = logging.getLogger("bin_f")
+        self.logger = logging.getLogger("binex_f")
 
     def __reset(self):
         self.__channel_subscribed = False

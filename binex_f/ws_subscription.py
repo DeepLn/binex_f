@@ -10,7 +10,7 @@ from binex_f.ws.ws_connection import WSConnection
 class WsSubscription(object):
     def __init__(self):
         self.ws_conns = dict()
-        self.logger = logging.getLogger("bin_f")
+        self.logger = logging.getLogger("binex_f")
 
     def subscribe(self, channel, payload_handler, error_handler):
         ws_conn = WSConnection.create(channel, payload_handler, error_handler)

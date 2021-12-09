@@ -10,6 +10,13 @@ Latest version: v0.1.0
 Quick Start
 -----------
 
+Install from pip:
+
+.. code:: bash
+
+    pip install binex-f==0.1.0
+
+
 Install from source code:
 
 .. code:: bash
