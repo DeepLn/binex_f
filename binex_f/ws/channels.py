@@ -2,7 +2,6 @@
 
 # Copyright (c) 2021 by DeepLn
 # Distributed under the MIT software license, see the accompanying
-# Subscribe the book depth infomation
 
 from binex_f.ws.mapping import *
 from binex_f.utils import random_id

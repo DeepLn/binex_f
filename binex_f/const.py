@@ -2,7 +2,6 @@
 
 # Copyright (c) 2021 by DeepLn
 # Distributed under the MIT software license, see the accompanying
-# Subscribe the book depth infomation
 
 KLINE_INTERVAL = [
         "1m",
