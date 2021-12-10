@@ -51,7 +51,14 @@ class RestApi:
     def __init__(self, api_key=None, secret_key=None):
         self.__api_key = api_key
         self.__secret_key = secret_key
-        self.__diff_time = 1_000 + current_timestamp() - self.get_servertime().serverTime
+        self.__timing_at = 0
+        self.__timing_with_server()
+
+    def __timing_with_server(self):
+        timestamp = current_timestamp()
+        if timestamp - self.__timing_at > (24 * 60 * 60 * 1_000):
+            self.__timing = 500 + timestamp - self.get_servertime().serverTime
+            self.__timing_at = timestamp
 
     def __create_request_by_get(self, url, mapping=None):
         return Dict2Class({
@@ -72,11 +79,12 @@ class RestApi:
             }, recursion=False)
 
     def __create_request_by_post_with_signature(self, url, mapping=None):
+        self.__timing_with_server()
         if not mapping:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self.__diff_time)
+                "timestamp": str(current_timestamp() - self._timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -90,11 +98,12 @@ class RestApi:
             }, recursion=False)
 
     def __create_request_by_delete_with_signature(self, url, mapping=None):
+        self.__timing_with_server()
         if not mapping:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self.__diff_time)
+                "timestamp": str(current_timestamp() - self._timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -107,11 +116,12 @@ class RestApi:
             }, recursion=False)
 
     def __create_request_by_get_with_signature(self, url, mapping=None):
+        self.__timing_with_server()
         if not mapping:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self.__diff_time)
+                "timestamp": str(current_timestamp() - self._timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -124,11 +134,12 @@ class RestApi:
             }, recursion=False)
 
     def __create_request_by_put_with_signature(self, url, mapping=None):
+        self.__timing_with_server()
         if not mapping:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self.__diff_time)
+                "timestamp": str(current_timestamp() - self._timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
