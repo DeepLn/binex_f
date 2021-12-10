@@ -8,6 +8,6 @@ setup(
     author_email='keyjunze@gmail.com',
     url='https://github.com/DeepLn/binex_f.git',
     description='An unofficial Python wrapper for the Binance exchange REST API',
-    packages=['binex_f'],
+    packages=['binex_f', 'binex_f.ws'],
     install_requires=['requests', 'urllib3', 'websocket-client']
 )

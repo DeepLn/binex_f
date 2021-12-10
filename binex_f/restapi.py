@@ -84,7 +84,7 @@ class RestApi:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self._timing)
+                "timestamp": str(current_timestamp() - self.__timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -103,7 +103,7 @@ class RestApi:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self._timing)
+                "timestamp": str(current_timestamp() - self.__timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -121,7 +121,7 @@ class RestApi:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self._timing)
+                "timestamp": str(current_timestamp() - self.__timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
@@ -139,7 +139,7 @@ class RestApi:
             mapping = dict()
         mapping.update({
                 "recvWindow": 60_000,
-                "timestamp": str(current_timestamp() - self._timing)
+                "timestamp": str(current_timestamp() - self.__timing)
             })
         mapping = create_signature(self.__secret_key, mapping)
         return Dict2Class({
