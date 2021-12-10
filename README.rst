@@ -14,7 +14,7 @@ Install from pip:
 
 .. code:: bash
 
-    pip install binex-f==0.1.1
+    pip install binex-f
 
 
 Install from source code:
