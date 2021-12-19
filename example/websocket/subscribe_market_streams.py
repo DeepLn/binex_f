@@ -144,8 +144,8 @@ def f27(pl, el):
 def __payload_handler(payload: 'Dict2Class'):
     print (Dict2Class.to_val(payload))
 
-def __error_handler(err_msg: 'dict'):
-    print (err_msg)
+def __error_handler(err_msg: 'Dict2Class'):
+    print (err_msg.asstr())
 
 if __name__ == "__main__":
     import sys

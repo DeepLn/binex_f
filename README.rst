@@ -145,8 +145,8 @@ An almost finished code example to subscribe user data, enjoy it.
 
 .. code:: python
 
-    import _thread, time
-    from binex_f import Dict2Class, RestApi, WsSubscription
+    import time
+    from binex_f import Dict2Class, RestApi, WsSubscription, start_thread
     
     class _UserData:
         def __init__(self):
@@ -180,7 +180,7 @@ An almost finished code example to subscribe user data, enjoy it.
         if "ORDER_TRADE_UPDATE" == payload.eventType:
             pass
         elif "listenKeyExpired" == payload.eventType:
-            _thread.start_new_thread(__subscribe_user_data, ())
+            start_thread(__subscribe_user_data, [])
         elif "MARGIN_CALL" == payload.eventType:
             pass
         elif "ACCOUNT_UPDATE" == payload.eventType:
@@ -191,8 +191,8 @@ An almost finished code example to subscribe user data, enjoy it.
             pass
         print (Dict2Class.to_val(payload))
     
-    def error_handler(err_msg: 'dict'):
-        print (err_msg)
+    def error_handler(err_msg: 'Dict2Class'):
+        print (err_msg.asstr())
     
     def __listenKey_watch(restapi):
         while True:
@@ -201,15 +201,14 @@ An almost finished code example to subscribe user data, enjoy it.
     
     if __name__ == "__main__":
         if __subscribe_user_data():
-            _thread.start_new_thread(__listenKey_watch, (__user_data.restapi,))
+            start_thread(__listenKey_watch, [__user_data.restapi])
 
 Websocket<market> Example
 -------------
 
 .. code:: python
 
-    import _thread
-    from binex_f import Dict2Class, WsSubscription
+    from binex_f import Dict2Class, WsSubscription, start_thread
 
     ws = WsSubscription()
     def f01(pl, el):
@@ -287,10 +286,10 @@ Websocket<market> Example
     def __payload_handler(payload: 'Dict2Class'):
         print (Dict2Class.to_val(payload))
     
-    def __error_handler(err_msg: 'dict'):
-        print (err_msg)
+    def __error_handler(err_msg: 'Dict2Class'):
+        print (err_msg.asstr())
 
-    _thread.start_new_thread(f01, (__payload_handler, __error_handler,))
+    start_thread(f01, [__payload_handler, __error_handler])
 
 
 Bash Show

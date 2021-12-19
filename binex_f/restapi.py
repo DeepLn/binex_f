@@ -567,18 +567,18 @@ class RestApi:
         response, limits = call_sync(self.__create_request_by_get_with_signature("/fapi/v1/multiAssetsMargin"))
         return _RespObj.loads(response, limits)
 
-    def post_order(self, symbol, side, _type, quantity=None, \
-                         positionSide=None, reduceOnly=None, price=None, newClientOrderId=None, \
+    def post_order(self, symbol, side, _type, price=None, quantity=None, \
+                         positionSide=None, reduceOnly=None, newClientOrderId=None, \
                                  stopPrice=None, closePosition=None, activationPrice=None, callbackRate=None, \
                                      timeInForce=None, workingType=None, priceProtect=None, newOrderRespType=None, test=False):
         mapping = self.__check_order_params(Dict2Class({
                 "symbol": symbol,
                 "side": side,
                 "_type": _type,
+                "price": price,
                 "quantity": quantity,
                 "positionSide": positionSide,
                 "reduceOnly": reduceOnly,
-                "price": price,
                 "newClientOrderId": newClientOrderId,
                 "stopPrice": stopPrice,
                 "closePosition": closePosition,

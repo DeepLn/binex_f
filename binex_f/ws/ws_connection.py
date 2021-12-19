@@ -3,8 +3,8 @@
 # Copyright (c) 2021 by DeepLn
 # Distributed under the MIT software license, see the accompanying
 
-import _thread, json, logging, threading, time, websocket
-from binex_f.utils import Dict2Class, current_timestamp
+import json, logging, time, websocket
+from binex_f.utils import Dict2Class, current_timestamp, start_thread
 
 class _ConnectionState:
     IDLE      = 0
@@ -44,8 +44,7 @@ class WSConnection:
     def __init__(self, channel):
         self.suspend = True
         self.__reset().set_ws(None).set_handlers(None, None).__set_channel(channel)
-        self.__watch_dog_thread = threading.Thread(target=watch_dog_job, args=[self])
-        self.__watch_dog_thread.start()
+        self.__watch_dog_thread = start_thread(target=watch_dog_job, args=[self])
         self.logger = logging.getLogger("binex_f")
 
     def __reset(self):
@@ -65,7 +64,7 @@ class WSConnection:
 
     def __handle_error(self, msg_type: 'str', msg: 'str'):
         if self.__error_handler:
-            self.__error_handler({"type": msg_type, "msg": msg})
+            self.__error_handler(Dict2Class({"type": msg_type, "msg": msg}))
         else:
             if "warning" == msg_type:
                 self.logger.warning(msg)
@@ -109,7 +108,7 @@ class WSConnection:
     @staticmethod
     def create(channel, payload_handler, error_handler=None):
         ws_conn = WSConnection(channel).set_handlers(payload_handler, error_handler)
-        _thread.start_new_thread(ws_func, (ws_conn,))
+        start_thread(ws_func, [ws_conn])
         return ws_conn
 
     def re_connect(self):
@@ -165,4 +164,4 @@ class WSConnection:
 
     def __rebuild_connection(self):
         self.logger.info("ws_conn<%s> (re)connecting..." % self.__channel.get("id"))
-        _thread.start_new_thread(ws_func, (self.__close().__reset(),))
+        start_thread(ws_func, [self.__close().__reset()])

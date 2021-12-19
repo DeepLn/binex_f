@@ -3,8 +3,12 @@
 # Copyright (c) 2021 by DeepLn
 # Distributed under the MIT software license, see the accompanying
 
-import ast, copy, json, random, string, time
+import ast, copy, json, random, string, time, threading
 from decimal import Decimal
+
+def check_filled(param, value):
+    if not value:
+        raise Exception("param<%s> should be filled" % param)
 
 def current_timestamp():
     return int(round(time.time() * 1_000))
@@ -17,9 +21,11 @@ def random_order_id():
         return ''.join(random.choice(chars) for _ in range(size))
     return "%s:%s-%s" % (id_generate(), id_generate(), id_generate())
 
-def check_filled(param, value):
-    if not value:
-        raise Exception("param<%s> should be filled" % param)
+def start_thread(target, args):
+    th = threading.Thread(target=target, args=args)
+    th.daemon = False
+    th.start()
+    return th
 
 class Dict2Class(object):
     replace_fields = [("null", "None"), ("true", "True"), ("false", "False")]

@@ -3,8 +3,8 @@
 # Copyright (c) 2021 by DeepLn
 # Distributed under the MIT software license, see the accompanying
 
-import _thread, time
-from binex_f import Dict2Class, RestApi, WsSubscription
+import time
+from binex_f import Dict2Class, RestApi, WsSubscription, start_thread
  
 class _UserData:
     def __init__(self):
@@ -45,7 +45,7 @@ def payload_handler(payload):
     if "ORDER_TRADE_UPDATE" == payload.eventType:
         pass
     elif "listenKeyExpired" == payload.eventType:
-        _thread.start_new_thread(__subscribe_user_data, ())
+        start_thread(__subscribe_user_data, [])
     elif "MARGIN_CALL" == payload.eventType:
         pass
     elif "ACCOUNT_UPDATE" == payload.eventType:
@@ -56,8 +56,8 @@ def payload_handler(payload):
         pass
     print (Dict2Class.to_val(payload))
 
-def error_handler(err_msg: 'dict'):
-    print (err_msg)
+def error_handler(err_msg: 'Dict2Class'):
+    print (err_msg.asstr())
 
 def __listenKey_watch(restapi):
     while True:
@@ -66,4 +66,4 @@ def __listenKey_watch(restapi):
 
 if __name__ == "__main__":
     if __subscribe_user_data():
-        _thread.start_new_thread(__listenKey_watch, (__user_data.restapi,))
+        start_thread(__listenKey_watch, [__user_data.restapi])
