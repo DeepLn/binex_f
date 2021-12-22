@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2021 by DeepLn
@@ -54,9 +55,9 @@ class Dict2Class(object):
         _r = list()
         for ele in val:
             if isinstance(ele, Dict2Class):
-                _r.append(ele.asdict())
+                _r.append(ele.asdict(_4_json))
             elif isinstance(ele, dict):
-                _r.append(Dict2Class(ele).asdict())
+                _r.append(Dict2Class(ele).asdict(_4_json))
             elif isinstance(ele, list):
                 _r.append(self.__it_list(ele, _4_json))
             elif isinstance(ele, tuple):
@@ -71,9 +72,9 @@ class Dict2Class(object):
         _d = copy.deepcopy(vars(self))
         for k, v in _d.items():
             if isinstance(v, Dict2Class):
-                _d.update({k: v.asdict()})
+                _d.update({k: v.asdict(_4_json)})
             elif isinstance(v, dict):
-                _d.update({k: Dict2Class(v).asdict()})
+                _d.update({k: Dict2Class(v).asdict(_4_json)})
             elif isinstance(v, list):
                 _d.update({k: self.__it_list(v, _4_json)})
             elif isinstance(v, tuple):

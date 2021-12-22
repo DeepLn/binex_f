@@ -1,10 +1,10 @@
 =================================
-Welcome to binex_f v0.1.1
+Welcome to binex_f v0.1.0
 =================================
 
 many interfaces are heavily used by myself in product environment, the websocket is reliable (re)connected.
 
-Latest version: v0.1.1
+Latest version: v0.1.0
 --------------------
 
 Quick Start
@@ -14,7 +14,7 @@ Install from pip:
 
 .. code:: bash
 
-    pip install binex-f
+    pip install binex-f==0.1.0
 
 
 Install from source code:

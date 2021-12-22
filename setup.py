@@ -1,4 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2021 by DeepLn
+# Distributed under the MIT software license, see the accompanying
+
 from setuptools import setup
 
 setup(
