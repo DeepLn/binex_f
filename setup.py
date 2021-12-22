@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name="binex_f",
-    version="0.1.1",
+    version="0.1.2",
     author='DeepLn',
     author_email='keyjunze@gmail.com',
     url='https://github.com/DeepLn/binex_f.git',
